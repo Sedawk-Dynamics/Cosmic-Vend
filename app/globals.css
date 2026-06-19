@@ -1,0 +1,285 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* CosmicVend Brand Fonts */
+  --font-sans: var(--font-inter), 'Inter', sans-serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', 'Georgia', serif;
+  --font-mono: var(--font-space-grotesk), 'Space Grotesk', monospace;
+
+  /* CosmicVend Brand Colors */
+  --color-cosmic-void: #07060F;
+  --color-amethyst: #6B3FA0;
+  --color-amethyst-light: #8B5FC8;
+  --color-amethyst-dark: #4A2870;
+  --color-sacred-gold: #C9A84C;
+  --color-sacred-gold-light: #E0C06A;
+  --color-sacred-gold-dark: #A88430;
+  --color-star-teal: #3ECFCF;
+  --color-lunar-white: #F0EAFF;
+
+  /* Semantic tokens mapped to CosmicVend brand */
+  --color-background: #07060F;
+  --color-foreground: #F0EAFF;
+  --color-card: rgba(107, 63, 160, 0.08);
+  --color-card-foreground: #F0EAFF;
+  --color-popover: #0D0B1A;
+  --color-popover-foreground: #F0EAFF;
+  --color-primary: #C9A84C;
+  --color-primary-foreground: #07060F;
+  --color-secondary: #6B3FA0;
+  --color-secondary-foreground: #F0EAFF;
+  --color-muted: rgba(107, 63, 160, 0.15);
+  --color-muted-foreground: rgba(240, 234, 255, 0.6);
+  --color-accent: #3ECFCF;
+  --color-accent-foreground: #07060F;
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-border: rgba(201, 168, 76, 0.2);
+  --color-input: rgba(107, 63, 160, 0.2);
+  --color-ring: #C9A84C;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius: 0.75rem;
+}
+
+:root {
+  --background: #07060F;
+  --foreground: #F0EAFF;
+  --card: rgba(107, 63, 160, 0.08);
+  --card-foreground: #F0EAFF;
+  --popover: #0D0B1A;
+  --popover-foreground: #F0EAFF;
+  --primary: #C9A84C;
+  --primary-foreground: #07060F;
+  --secondary: #6B3FA0;
+  --secondary-foreground: #F0EAFF;
+  --muted: rgba(107, 63, 160, 0.15);
+  --muted-foreground: rgba(240, 234, 255, 0.6);
+  --accent: #3ECFCF;
+  --accent-foreground: #07060F;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(201, 168, 76, 0.2);
+  --input: rgba(107, 63, 160, 0.2);
+  --ring: #C9A84C;
+  --radius: 0.75rem;
+  --sidebar: #0D0B1A;
+  --sidebar-foreground: #F0EAFF;
+  --sidebar-primary: #C9A84C;
+  --sidebar-primary-foreground: #07060F;
+  --sidebar-accent: rgba(107, 63, 160, 0.15);
+  --sidebar-accent-foreground: #F0EAFF;
+  --sidebar-border: rgba(201, 168, 76, 0.2);
+  --sidebar-ring: #C9A84C;
+  --chart-1: #C9A84C;
+  --chart-2: #6B3FA0;
+  --chart-3: #3ECFCF;
+  --chart-4: #8B5FC8;
+  --chart-5: #E0C06A;
+
+  /* Per-world accent (defaults to sacred gold; each experience overrides these) */
+  --world-accent: #C9A84C;
+  --world-accent-light: #E0C06A;
+  --world-accent-dark: #A88430;
+  --world-accent-rgb: 201, 168, 76;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #07060F;
+    color: #F0EAFF;
+  }
+  html {
+    @apply font-sans;
+    background-color: #07060F;
+  }
+}
+
+/* Starfield animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(2deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes nebula-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes counter-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.font-display {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+.font-label {
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.text-sacred-gold {
+  color: #C9A84C;
+}
+
+.text-amethyst {
+  color: #6B3FA0;
+}
+
+.text-lunar {
+  color: #F0EAFF;
+}
+
+.text-star-teal {
+  color: #3ECFCF;
+}
+
+.bg-cosmic-void {
+  background-color: #07060F;
+}
+
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--world-accent, #C9A84C),
+    var(--world-accent-light, #E0C06A),
+    var(--world-accent, #C9A84C),
+    var(--world-accent-dark, #A88430),
+    var(--world-accent, #C9A84C)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+.glassmorphism {
+  background: rgba(30, 16, 56, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+}
+
+.glassmorphism-dark {
+  background: rgba(7, 6, 15, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(107, 63, 160, 0.35);
+}
+
+.gold-glow {
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.3), 0 0 60px rgba(201, 168, 76, 0.1);
+}
+
+.amethyst-glow {
+  box-shadow: 0 0 20px rgba(107, 63, 160, 0.4), 0 0 60px rgba(107, 63, 160, 0.15);
+}
+
+.nebula-bg {
+  background: radial-gradient(ellipse at 20% 20%, rgba(107, 63, 160, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(62, 207, 207, 0.05) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 70%),
+              #07060F;
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #07060F; }
+::-webkit-scrollbar-thumb { background: rgba(107, 63, 160, 0.5); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 168, 76, 0.5); }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* ============================================================
+   Immersive experience animations (Abundance & future worlds)
+   ============================================================ */
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-4%, -2%, 0) scale(1);    opacity: 0.55; }
+  50%  { transform: translate3d(4%, 3%, 0)  scale(1.15);  opacity: 0.85; }
+  100% { transform: translate3d(-4%, -2%, 0) scale(1);    opacity: 0.55; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.45; }
+  50%      { transform: translate(-50%, -50%) scale(1.15); opacity: 0.85; }
+}
+
+@keyframes nebula-pan {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(var(--world-accent-rgb, 201, 168, 76), 0.25), inset 0 0 24px rgba(var(--world-accent-rgb, 201, 168, 76), 0.08); }
+  50%      { box-shadow: 0 0 48px rgba(var(--world-accent-rgb, 201, 168, 76), 0.5),  inset 0 0 36px rgba(var(--world-accent-rgb, 201, 168, 76), 0.18); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.animate-aurora  { animation: aurora-drift 18s ease-in-out infinite; }
+.animate-breathe { animation: breathe 7s ease-in-out infinite; }
+.animate-nebula  { background-size: 220% 220%; animation: nebula-pan 26s ease-in-out infinite; }
+.animate-border-pulse { animation: border-pulse 4.5s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 40s linear infinite; }
+.animate-float-soft { animation: float-soft 6s ease-in-out infinite; }
+
+/* Indic affirmation typography (Noto Sans families loaded on the experience route) */
+.font-indic {
+  font-family: 'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Malayalam',
+    'Noto Sans Kannada', 'Noto Sans Devanagari', sans-serif;
+  line-height: 1.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora,
+  .animate-breathe,
+  .animate-nebula,
+  .animate-border-pulse,
+  .animate-spin-slow,
+  .animate-float-soft,
+  .float-animation,
+  .gold-shimmer { animation: none !important; }
+}
