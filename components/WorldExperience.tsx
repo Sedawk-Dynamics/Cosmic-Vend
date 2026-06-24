@@ -131,7 +131,7 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.3, ease: 'easeOut' }}
           >
-            <Navigation href="/experience" label="All Worlds" />
+            <Navigation href="/about" label="All Worlds" />
 
             <Hero eyebrow={config.label} title={config.title} subtitle={config.subtitle} />
 
