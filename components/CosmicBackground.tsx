@@ -10,6 +10,8 @@ interface CosmicBackgroundProps {
   glow?: string
   /** Enable the drifting particle field. */
   particles?: boolean
+  /** Theme gradient hexes for the base void (matches the original HTML rituals). */
+  gradient?: { g1: string; g2: string; g3: string }
 }
 
 /**
@@ -21,6 +23,7 @@ export default function CosmicBackground({
   accent = '201, 168, 76',
   glow = '107, 63, 160',
   particles = true,
+  gradient,
 }: CosmicBackgroundProps) {
   const parallaxRef = useRef<HTMLDivElement>(null)
 
@@ -47,8 +50,17 @@ export default function CosmicBackground({
 
   return (
     <div className="fixed inset-0 -z-20 overflow-hidden" aria-hidden="true">
-      {/* base void */}
-      <div className="absolute inset-0 bg-[#07060F]" />
+      {/* base void — themed gradient when provided, mirroring the HTML rituals */}
+      <div
+        className="absolute inset-0 bg-[#07060F]"
+        style={
+          gradient
+            ? {
+                background: `linear-gradient(135deg, ${gradient.g1} 0%, ${gradient.g2} 50%, ${gradient.g3} 100%)`,
+              }
+            : undefined
+        }
+      />
 
       {/* nebula pan */}
       <div

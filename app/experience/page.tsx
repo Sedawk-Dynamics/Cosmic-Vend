@@ -134,7 +134,6 @@ export default function ExperiencePage() {
                 subtitle={theme.tagline}
                 image={theme.image}
                 color={theme.color}
-                href={theme.href}
                 index={i}
               />
             ))}

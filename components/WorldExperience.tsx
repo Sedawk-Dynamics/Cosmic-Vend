@@ -108,7 +108,7 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&family=Noto+Sans+Telugu&family=Noto+Sans+Malayalam&family=Noto+Sans+Kannada&family=Noto+Sans+Devanagari&display=swap"
       />
 
-      <CosmicBackground accent={config.accent.rgb} glow={config.glowRgb} />
+      <CosmicBackground accent={config.accent.rgb} glow={config.glowRgb} gradient={config.gradient} />
 
       {/* Ambient drone — synthesised live (no audio file). Starts on first gesture. */}
       <AudioPlayer

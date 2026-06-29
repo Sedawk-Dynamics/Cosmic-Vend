@@ -17,6 +17,8 @@ export interface WorldConfig {
   accent: { hex: string; light: string; dark: string; rgb: string }
   /** Soft secondary glow for the cosmic background, as an "r, g, b" string. */
   glowRgb: string
+  /** Background gradient (matches the original HTML ritual theme). */
+  gradient: { g1: string; g2: string; g3: string }
   /** Eyebrow + portal label (e.g. "The Expansion Vector"). */
   label: string
   title: string
@@ -38,8 +40,9 @@ export interface WorldConfig {
 export const WORLDS: Record<string, WorldConfig> = {
   abundance: {
     slug: 'abundance',
-    accent: { hex: '#C9A84C', light: '#E0C06A', dark: '#A88430', rgb: '201, 168, 76' },
-    glowRgb: '107, 63, 160',
+    accent: { hex: '#d4af37', light: '#E5C66A', dark: '#A8852A', rgb: '212, 175, 55' },
+    glowRgb: '76, 175, 120',
+    gradient: { g1: '#0a3d2e', g2: '#1a5c47', g3: '#0d4a38' },
     label: 'The Expansion Vector',
     title: 'Abundance',
     subtitle: 'Calling in Overflow',
@@ -72,6 +75,7 @@ export const WORLDS: Record<string, WorldConfig> = {
     slug: 'prosperity',
     accent: { hex: '#FFD700', light: '#FFE373', dark: '#B89B00', rgb: '255, 215, 0' },
     glowRgb: '180, 140, 255',
+    gradient: { g1: '#2d1b4e', g2: '#4a2c7a', g3: '#1f1235' },
     label: 'The Ascending Lattice',
     title: 'Prosperity',
     subtitle: 'Growth in All Directions',
@@ -104,6 +108,7 @@ export const WORLDS: Record<string, WorldConfig> = {
     slug: 'self-love',
     accent: { hex: '#E8B4A0', light: '#F3C9BC', dark: '#C98E78', rgb: '232, 180, 160' },
     glowRgb: '232, 150, 170',
+    gradient: { g1: '#4a1a2e', g2: '#6b2c42', g3: '#3d1525' },
     label: 'The Radiant Core',
     title: 'Self-Love',
     subtitle: 'Returning to Oneself',
@@ -136,6 +141,7 @@ export const WORLDS: Record<string, WorldConfig> = {
     slug: 'peace',
     accent: { hex: '#C0C0C0', light: '#DCDCDC', dark: '#9AA3B0', rgb: '192, 192, 192' },
     glowRgb: '150, 170, 200',
+    gradient: { g1: '#2d3436', g2: '#4a5568', g3: '#1a202c' },
     label: 'The Infinite Void',
     title: 'Peace',
     subtitle: 'Stillness and Clarity',
@@ -168,6 +174,7 @@ export const WORLDS: Record<string, WorldConfig> = {
     slug: 'gratitude',
     accent: { hex: '#CFB53B', light: '#E2CB6B', dark: '#A8922C', rgb: '207, 181, 59' },
     glowRgb: '210, 160, 90',
+    gradient: { g1: '#8b4513', g2: '#b5651d', g3: '#a0522d' },
     label: 'The Echoing Ripple',
     title: 'Gratitude',
     subtitle: 'The Highest Vibration',

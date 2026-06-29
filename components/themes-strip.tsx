@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const themes = [
   {
@@ -103,7 +102,7 @@ export default function ThemesStrip() {
                 boxShadow: `0 25px 60px ${theme.glow}, 0 0 0 1px ${theme.color}44`,
                 transition: { type: 'spring', stiffness: 260, damping: 18 },
               }}
-              className="relative rounded-2xl overflow-hidden cursor-pointer group"
+              className="relative rounded-2xl overflow-hidden cursor-default group"
               style={{ minHeight: 280 }}
             >
               {/* Image */}
@@ -147,13 +146,6 @@ export default function ThemesStrip() {
                   {theme.tagline}
                 </p>
               </div>
-
-              {/* full-card click target → the immersive experience */}
-              <Link
-                href={theme.href}
-                aria-label={`Enter the ${theme.name} experience`}
-                className="absolute inset-0 z-10"
-              />
             </motion.div>
           ))}
         </motion.div>
