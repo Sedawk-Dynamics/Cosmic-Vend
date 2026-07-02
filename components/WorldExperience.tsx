@@ -100,7 +100,7 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
   } as CSSProperties
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden text-[#F0EAFF]" style={themeVars}>
+    <main className="relative isolate min-h-screen overflow-x-hidden text-[#F0EAFF]" style={themeVars}>
       {/* Noto Sans families for the Indic affirmations (hoisted to <head> by Next) */}
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <link
@@ -113,7 +113,7 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
       {/* Ambient drone — synthesised live (no audio file). Starts on first gesture. */}
       <AudioPlayer
         partials={config.tuning}
-        storageKey={`cv-${config.slug}-muted`}
+        storageKey={`cv-${config.slug}-sound-on`}
         controlsVisible={begun}
       />
 

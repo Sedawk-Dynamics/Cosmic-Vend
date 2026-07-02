@@ -62,16 +62,21 @@ export default function CosmicBackground({
         }
       />
 
-      {/* nebula pan */}
+      {/* nebula pan — mirrors the HTML .aurora layer when a theme gradient is set */}
       <div
         className="absolute inset-0 animate-nebula opacity-90"
         style={{
-          background:
-            'radial-gradient(40% 55% at 18% 25%, rgba(' +
-            glow +
-            ', 0.28) 0%, transparent 60%), radial-gradient(45% 60% at 82% 70%, rgba(' +
-            accent +
-            ', 0.16) 0%, transparent 62%), radial-gradient(60% 60% at 50% 50%, rgba(62,207,207,0.06) 0%, transparent 70%)',
+          background: gradient
+            ? 'radial-gradient(40% 50% at 25% 30%, rgba(' +
+              accent +
+              ', 0.16) 0%, transparent 70%), radial-gradient(45% 55% at 78% 70%, rgba(' +
+              glow +
+              ', 0.18) 0%, transparent 70%)'
+            : 'radial-gradient(40% 55% at 18% 25%, rgba(' +
+              glow +
+              ', 0.28) 0%, transparent 60%), radial-gradient(45% 60% at 82% 70%, rgba(' +
+              accent +
+              ', 0.16) 0%, transparent 62%), radial-gradient(60% 60% at 50% 50%, rgba(62,207,207,0.06) 0%, transparent 70%)',
         }}
       />
 
@@ -114,14 +119,16 @@ export default function CosmicBackground({
         />
       )}
 
-      {/* vignette for depth */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 55%, rgba(7,6,15,0.85) 100%)',
-        }}
-      />
+      {/* vignette for depth — skipped when a theme gradient is set so the HTML colours show through */}
+      {!gradient && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 55%, rgba(7,6,15,0.85) 100%)',
+          }}
+        />
+      )}
     </div>
   )
 }

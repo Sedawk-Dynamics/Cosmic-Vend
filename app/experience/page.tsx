@@ -38,11 +38,11 @@ const ritualSteps = [
 ]
 
 const themes = [
-  { name: 'Abundance', tagline: 'Calling in overflow', color: '#C9A84C', image: '/images/theme-abundance.png', href: '/experience/abundance' },
-  { name: 'Prosperity', tagline: 'Growth in all directions', color: '#4CAF78', image: '/images/theme-prosperity.png', href: '/experience/prosperity' },
-  { name: 'Self Love', tagline: 'Returning to oneself', color: '#E0829A', image: '/images/theme-selflove.png', href: '/experience/self-love' },
-  { name: 'Peace', tagline: 'Stillness and clarity', color: '#7EB8E8', image: '/images/theme-peace.png', href: '/experience/peace' },
-  { name: 'Gratitude', tagline: 'The highest vibration', color: '#F0EAFF', image: '/images/theme-gratitude.png', href: '/experience/gratitude' },
+  { name: 'Abundance', tagline: 'Calling in overflow', color: '#d4af37', image: '/images/theme-abundance.png', href: '/experience/abundance' },
+  { name: 'Prosperity', tagline: 'Growth in all directions', color: '#ffd700', image: '/images/theme-prosperity.png', href: '/experience/prosperity' },
+  { name: 'Self Love', tagline: 'Returning to oneself', color: '#e8b4a0', image: '/images/theme-selflove.png', href: '/experience/self-love' },
+  { name: 'Peace', tagline: 'Stillness and clarity', color: '#c0c0c0', image: '/images/theme-peace.png', href: '/experience/peace' },
+  { name: 'Gratitude', tagline: 'The highest vibration', color: '#cfb53b', image: '/images/theme-gratitude.png', href: '/experience/gratitude' },
 ]
 
 export default function ExperiencePage() {
