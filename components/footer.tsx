@@ -113,6 +113,27 @@ export default function Footer() {
           >
             Terms of Use
           </Link>
+
+          <Link
+            href="/privacy-policy"
+            className="font-sans text-sm text-gray-600 hover:text-[#C9A84C] transition-colors duration-200"
+          >
+            Privacy Policy
+          </Link>
+
+          <Link
+            href="/cookie-policy"
+            className="font-sans text-sm text-gray-600 hover:text-[#C9A84C] transition-colors duration-200"
+          >
+            Cookie Policy
+          </Link>
+
+          <Link
+            href="/disclaimer-policy"
+            className="font-sans text-sm text-gray-600 hover:text-[#C9A84C] transition-colors duration-200"
+          >
+            Disclaimer Policy
+          </Link>
         </div>
 
         {/* Bottom */}
