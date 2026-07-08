@@ -105,6 +105,16 @@ export default function Footer() {
         {/* Divider */}
         <div className="my-10 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
 
+        {/* Legal */}
+        <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link
+            href="/terms-of-use"
+            className="font-sans text-sm text-gray-600 hover:text-[#C9A84C] transition-colors duration-200"
+          >
+            Terms of Use
+          </Link>
+        </div>
+
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-mono text-xs text-gray-500 tracking-wide">

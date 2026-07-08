@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -53,11 +54,23 @@ const machineSpecs = [
 ]
 
 function EnquiryForm() {
-  const [path, setPath] = useState<'venue' | 'franchise'>('venue')
+  const searchParams = useSearchParams()
+  const [path, setPath] = useState<'venue' | 'franchise'>(
+    searchParams.get('path') === 'franchise' ? 'franchise' : 'venue',
+  )
   const [submitted, setSubmitted] = useState(false)
 
+  // React to CTAs that arrive with ?path=venue|franchise — select the matching
+  // tab and bring the form into view (works cross-page and same-page).
+  useEffect(() => {
+    const p = searchParams.get('path')
+    if (p !== 'venue' && p !== 'franchise') return
+    setPath(p)
+    document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [searchParams])
+
   return (
-    <div id="enquiry" className="glassmorphism rounded-3xl p-8 md:p-12">
+    <div id="enquiry" className="glassmorphism scroll-mt-28 rounded-3xl p-8 md:p-12">
       {/* Path selector */}
       <div className="flex gap-3 mb-8">
         {(['venue', 'franchise'] as const).map((p) => (
@@ -203,7 +216,7 @@ export default function PartnerPage() {
               <p className="font-sans text-sm text-[#F0EAFF]">A compact, guest-visible floor space + a standard power connection. <strong className="text-[#C9A84C]">That&apos;s it.</strong></p>
             </div>
             <p className="font-mono text-xs text-[rgba(240,234,255,0.35)] tracking-wide">Best for: hotels, malls, airports, wellness centres</p>
-            <Link href="#enquiry">
+            <Link href="/partner?path=venue#enquiry">
               <motion.button whileHover={{ scale: 1.02, boxShadow: '0 0 35px rgba(201,168,76,0.4)' }} whileTap={{ scale: 0.98 }}
                 className="w-full py-3.5 rounded-full font-mono text-sm tracking-widest uppercase font-semibold"
                 style={{ background: 'linear-gradient(135deg, #C9A84C, #E0C06A)', color: '#07060F' }}>
@@ -236,7 +249,7 @@ export default function PartnerPage() {
               ))}
             </div>
             <p className="font-mono text-xs text-[rgba(240,234,255,0.35)] tracking-wide">Best for: entrepreneurs, operators, investors</p>
-            <Link href="#enquiry">
+            <Link href="/partner?path=franchise#enquiry">
               <motion.button whileHover={{ scale: 1.02, boxShadow: '0 0 35px rgba(107,63,160,0.5)' }} whileTap={{ scale: 0.98 }}
                 className="w-full py-3.5 rounded-full font-mono text-sm tracking-widest uppercase font-semibold"
                 style={{ background: 'linear-gradient(135deg, #6B3FA0, #8B5FC8)', color: '#F0EAFF' }}>
@@ -327,7 +340,9 @@ export default function PartnerPage() {
             <h2 className="font-serif text-4xl md:text-5xl text-[#F0EAFF]">Choose your path.</h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <EnquiryForm />
+            <Suspense fallback={null}>
+              <EnquiryForm />
+            </Suspense>
           </motion.div>
         </div>
       </section>

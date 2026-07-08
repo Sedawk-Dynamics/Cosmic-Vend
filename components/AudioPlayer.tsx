@@ -141,20 +141,29 @@ export default function AudioPlayer({
     rampTo(mutedRef.current ? 0.0001 : volume, 2.6)
   }, [build, rampTo, volume])
 
-  // autoplay after the first interaction anywhere on the page
+  // Autoplay after the first interaction anywhere on the page.
+  // Mobile browsers (notably iOS Safari) only unlock/resume a Web Audio context
+  // on a `click`/`touchend` gesture — never on `pointerdown`/`touchstart`. So we
+  // listen across all valid gesture types and keep retrying until the context is
+  // actually `running`, only then removing the listeners.
   useEffect(() => {
-    let done = false
+    let removed = false
+    const events = ['pointerdown', 'touchend', 'click', 'keydown'] as const
+    const remove = () => {
+      if (removed) return
+      removed = true
+      events.forEach((e) => window.removeEventListener(e, kick))
+    }
     const kick = () => {
-      if (done) return
-      done = true
       start()
+      const ctx = ctxRef.current
+      if (!ctx) return
+      void ctx.resume().then(() => {
+        if (ctx.state === 'running') remove()
+      })
     }
-    window.addEventListener('pointerdown', kick, { once: true })
-    window.addEventListener('keydown', kick, { once: true })
-    return () => {
-      window.removeEventListener('pointerdown', kick)
-      window.removeEventListener('keydown', kick)
-    }
+    events.forEach((e) => window.addEventListener(e, kick))
+    return remove
   }, [start])
 
   // release the audio context on unmount
