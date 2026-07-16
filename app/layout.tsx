@@ -48,7 +48,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${inter.variable} ${cormorant.variable} ${spaceGrotesk.variable} bg-[#07060F]`}
     >
       <body className="antialiased bg-[#07060F] text-[#F0EAFF]">{children}</body>

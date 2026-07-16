@@ -40,7 +40,6 @@ function CosmicVendLogo({
           width={logoWidth}
           priority
           className="object-contain"
-          style={{ width: 'auto', height: 'auto' }}
         />
       </motion.div>
     </Link>

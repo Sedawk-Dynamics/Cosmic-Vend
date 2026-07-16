@@ -46,7 +46,6 @@ function CosmicVendLogo() {
         width={280}
         priority
         className="object-contain"
-        style={{ width: 'auto', height: 'auto' }}
       />
     </Link>
   )
