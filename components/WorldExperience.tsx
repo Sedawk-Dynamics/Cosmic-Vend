@@ -49,7 +49,7 @@ function BeginPortal({ label, title, onBegin }: { label: string; title: string; 
         WebkitBackdropFilter: 'blur(6px)',
       }}
     >
-      <Image src={LOGO} alt="CosmicVend" width={180} height={48} priority className="mb-7 object-contain opacity-90" />
+      <Image src={LOGO} alt="CosmicVend" width={180} height={48} priority className="mb-7 object-contain opacity-90" style={{ width: 'auto', height: 'auto' }} />
       <p className="mb-3 font-mono text-xs uppercase tracking-[0.4em] text-(--world-accent)">{label}</p>
       <h1 className="gold-shimmer mb-10 font-serif text-6xl md:text-7xl">{title}</h1>
 

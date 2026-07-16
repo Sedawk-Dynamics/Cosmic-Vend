@@ -1,12 +1,13 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import StarfieldCanvas from '@/components/starfield-canvas'
+import { WEB3FORMS_ACCESS_KEY } from '@/lib/web3forms'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 36, filter: 'blur(6px)' },
@@ -59,6 +60,31 @@ function EnquiryForm() {
     searchParams.get('path') === 'franchise' ? 'franchise' : 'venue',
   )
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok || !json.success) {
+        throw new Error(json?.message || 'Something went wrong. Please try again.')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not send. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   // React to CTAs that arrive with ?path=venue|franchise — select the matching
   // tab and bring the form into view (works cross-page and same-page).
@@ -94,15 +120,29 @@ function EnquiryForm() {
           <div className="text-5xl mb-4" style={{ color: '#C9A84C' }}>&#10022;</div>
           <h3 className="font-serif text-3xl text-[#F0EAFF] mb-3">Received. The cosmos aligns.</h3>
           <p className="font-sans text-[rgba(240,234,255,0.6)]">
-            Our team will be in touch within 48 hours to arrange your{' '}
+            Our team will be in touch soon to arrange your{' '}
             {path === 'venue' ? 'site walk' : 'discovery call'}.
           </p>
         </div>
       ) : (
         <form
-          onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }}
+          onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-5"
         >
+          {/* Web3Forms hidden fields */}
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+          <input type="hidden" name="from_name" value="CosmicVend Website" />
+          <input
+            type="hidden"
+            name="subject"
+            value={path === 'venue' ? 'New Venue Placement enquiry (Model A)' : 'New Franchise enquiry (Model B)'}
+          />
+          <input
+            type="hidden"
+            name="enquiry_type"
+            value={path === 'venue' ? 'Venue Placement (Model A)' : 'Franchise (Model B)'}
+          />
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
           {[
             { id: 'name', label: 'Full Name', type: 'text', required: true, full: false },
             { id: 'company', label: path === 'venue' ? 'Venue / Company' : 'Company / Business', type: 'text', required: true, full: false },
@@ -117,6 +157,7 @@ function EnquiryForm() {
               </label>
               <input
                 id={id}
+                name={id}
                 type={type}
                 required={required}
                 className="w-full px-4 py-3 rounded-xl font-sans text-sm text-[#F0EAFF] placeholder:text-[rgba(240,234,255,0.25)] focus:outline-none transition-all duration-200"
@@ -136,6 +177,7 @@ function EnquiryForm() {
             </label>
             <textarea
               id="venueType"
+              name="details"
               rows={4}
               placeholder={path === 'venue' ? 'e.g. Boutique hotel, 80 rooms, lobby space available…' : 'Tell us about your location access, experience, and goals…'}
               className="w-full px-4 py-3 rounded-xl font-sans text-sm text-[#F0EAFF] placeholder:text-[rgba(240,234,255,0.25)] focus:outline-none transition-all duration-200 resize-none"
@@ -151,16 +193,20 @@ function EnquiryForm() {
           <div className="md:col-span-2">
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.02, boxShadow: '0 0 50px rgba(201,168,76,0.5)' }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-4 rounded-full font-mono text-sm tracking-widest uppercase font-semibold"
+              disabled={submitting}
+              whileHover={submitting ? undefined : { scale: 1.02, boxShadow: '0 0 50px rgba(201,168,76,0.5)' }}
+              whileTap={submitting ? undefined : { scale: 0.98 }}
+              className="w-full py-4 rounded-full font-mono text-sm tracking-widest uppercase font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               style={{
                 background: 'linear-gradient(135deg, #C9A84C 0%, #E0C06A 50%, #C9A84C 100%)',
                 color: '#07060F',
               }}
             >
-              {path === 'venue' ? 'Request a Site Walk' : 'Book a Discovery Call'}
+              {submitting ? 'Sending…' : path === 'venue' ? 'Request a Site Walk' : 'Book a Discovery Call'}
             </motion.button>
+            {error && (
+              <p role="alert" className="mt-3 text-center font-sans text-sm text-red-400">{error}</p>
+            )}
           </div>
         </form>
       )}

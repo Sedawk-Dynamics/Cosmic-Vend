@@ -281,6 +281,9 @@ const SECTIONS: Section[] = [
       '22.2. Waiver: The failure at any time to require the performance of any provision of these Terms of Use shall in no manner affect our right at a later time to enforce the same. No waiver by us of any breach of these Terms of Use, whether by conduct or otherwise, in any one or more instances, shall be deemed to be or construed as a further or continuing waiver of any such breach, or a waiver of any other breach of these Terms of Use.',
       '22.3. Severability: If any provision/clause of these Terms of Use is held to be invalid, illegal, or unenforceable by any court or authority of competent jurisdiction, the validity, legality, and enforceability of the remaining provisions/clauses of these Terms of Use shall in no way be affected or impaired thereby, and each such provision/clause of these Terms of Use shall be valid and enforceable to the fullest extent permitted by Applicable Law. In such case, these Terms of Use shall be reformed to the minimum extent necessary to correct any invalidity, illegality or unenforceability, while preserving to the maximum extent the original rights, intentions and commercial expectations of the Parties hereto, as expressed herein.',
       '22.4. Contact Us: If you have any questions about these Terms of Use, the practices of the Website, or your experience, you can contact us by emailing us at info@cosmicvend.com or by writing to us at :',
+      'Hallow Essentials LLP',
+      '57/18, Sattanayakan Street, Tiruvannamalai, Tamil Nadu – 606601, India',
+      'Email: info@cosmicvend.com',
     ],
   },
 ]

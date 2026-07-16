@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import StarfieldCanvas from '@/components/starfield-canvas'
+import { WEB3FORMS_ACCESS_KEY } from '@/lib/web3forms'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 36, filter: 'blur(6px)' },
@@ -40,6 +41,31 @@ const nextSteps = [
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok || !json.success) {
+        throw new Error(json?.message || 'Something went wrong. Please try again.')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not send. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div id="contact" className="glassmorphism rounded-3xl p-8 md:p-12">
@@ -47,21 +73,26 @@ function ContactForm() {
         <div className="text-center py-12">
           <div className="text-5xl mb-4" style={{ color: '#C9A84C' }}>&#10022;</div>
           <h3 className="font-serif text-3xl text-[#F0EAFF] mb-3">Message received.</h3>
-          <p className="font-sans text-[rgba(240,234,255,0.6)]">Our team will respond within 48 hours.</p>
+          <p className="font-sans text-[rgba(240,234,255,0.6)]">Our team will respond soon.</p>
         </div>
       ) : (
-        <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Web3Forms hidden fields */}
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+          <input type="hidden" name="subject" value="New enquiry from CosmicVend website" />
+          <input type="hidden" name="from_name" value="CosmicVend Website" />
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
           {[
-            { id: 'cname', label: 'Name', type: 'text', required: true, full: false },
-            { id: 'ccompany', label: 'Company / Organisation', type: 'text', required: false, full: false },
-            { id: 'cemail', label: 'Email Address', type: 'email', required: true, full: false },
-            { id: 'cphone', label: 'Phone', type: 'tel', required: false, full: false },
-          ].map(({ id, label, type, required, full }) => (
+            { id: 'cname', name: 'name', label: 'Name', type: 'text', required: true, full: false },
+            { id: 'ccompany', name: 'company', label: 'Company / Organisation', type: 'text', required: false, full: false },
+            { id: 'cemail', name: 'email', label: 'Email Address', type: 'email', required: true, full: false },
+            { id: 'cphone', name: 'phone', label: 'Phone', type: 'tel', required: false, full: false },
+          ].map(({ id, name, label, type, required, full }) => (
             <div key={id} className={full ? 'md:col-span-2' : ''}>
               <label htmlFor={id} className="block font-mono text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(201,168,76,0.7)' }}>
                 {label}{required && ' *'}
               </label>
-              <input id={id} type={type} required={required}
+              <input id={id} name={name} type={type} required={required}
                 className="w-full px-4 py-3 rounded-xl font-sans text-sm text-[#F0EAFF] placeholder:text-[rgba(240,234,255,0.25)] focus:outline-none transition-all duration-200"
                 style={{ background: 'rgba(107,63,160,0.1)', border: '1px solid rgba(201,168,76,0.15)' }}
                 onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)')}
@@ -71,23 +102,23 @@ function ContactForm() {
           ))}
           <div className="md:col-span-2">
             <label htmlFor="ctype" className="block font-mono text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(201,168,76,0.7)' }}>Enquiry Type</label>
-            <select id="ctype"
+            <select id="ctype" name="enquiry_type"
               className="w-full px-4 py-3 rounded-xl font-sans text-sm text-[#F0EAFF] focus:outline-none transition-all duration-200 appearance-none"
               style={{ background: 'rgba(107,63,160,0.1)', border: '1px solid rgba(201,168,76,0.15)' }}
               defaultValue=""
               onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)')}
             >
-              <option value="" disabled>Select enquiry type</option>
-              <option value="venue">Venue Placement (Model A)</option>
-              <option value="franchise">Franchise Enquiry (Model B)</option>
-              <option value="press">Press &amp; Media</option>
-              <option value="other">Other</option>
+              <option value="" disabled style={{ backgroundColor: '#12081F', color: 'rgba(240,234,255,0.5)' }}>Select enquiry type</option>
+              <option value="venue" style={{ backgroundColor: '#12081F', color: '#F0EAFF' }}>Venue Placement (Model A)</option>
+              <option value="franchise" style={{ backgroundColor: '#12081F', color: '#F0EAFF' }}>Franchise Enquiry (Model B)</option>
+              <option value="press" style={{ backgroundColor: '#12081F', color: '#F0EAFF' }}>Press &amp; Media</option>
+              <option value="other" style={{ backgroundColor: '#12081F', color: '#F0EAFF' }}>Other</option>
             </select>
           </div>
           <div className="md:col-span-2">
             <label htmlFor="cmsg" className="block font-mono text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(201,168,76,0.7)' }}>Message</label>
-            <textarea id="cmsg" rows={4} placeholder="Tell us about your space, your goals, or your enquiry…"
+            <textarea id="cmsg" name="message" rows={4} placeholder="Tell us about your space, your goals, or your enquiry…"
               className="w-full px-4 py-3 rounded-xl font-sans text-sm text-[#F0EAFF] placeholder:text-[rgba(240,234,255,0.25)] focus:outline-none transition-all duration-200 resize-none"
               style={{ background: 'rgba(107,63,160,0.1)', border: '1px solid rgba(201,168,76,0.15)' }}
               onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)')}
@@ -95,13 +126,16 @@ function ContactForm() {
             />
           </div>
           <div className="md:col-span-2">
-            <motion.button type="submit"
-              whileHover={{ scale: 1.02, boxShadow: '0 0 50px rgba(201,168,76,0.5)' }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-4 rounded-full font-mono text-sm tracking-widest uppercase font-semibold"
+            <motion.button type="submit" disabled={submitting}
+              whileHover={submitting ? undefined : { scale: 1.02, boxShadow: '0 0 50px rgba(201,168,76,0.5)' }}
+              whileTap={submitting ? undefined : { scale: 0.98 }}
+              className="w-full py-4 rounded-full font-mono text-sm tracking-widest uppercase font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ background: 'linear-gradient(135deg, #C9A84C 0%, #E0C06A 50%, #C9A84C 100%)', color: '#07060F' }}>
-              Send Enquiry
+              {submitting ? 'Sending…' : 'Send Enquiry'}
             </motion.button>
+            {error && (
+              <p role="alert" className="mt-3 text-center font-sans text-sm text-red-400">{error}</p>
+            )}
           </div>
         </form>
       )}
