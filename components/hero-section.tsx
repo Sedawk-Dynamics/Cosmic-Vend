@@ -129,7 +129,7 @@ export default function HeroSection() {
               className="font-serif text-xl md:text-2xl font-semibold tracking-wide"
               style={{ color: '#D4AF37' }} // Sacred Gold
             >
-              Meet India's first wellness vending machine
+              Meet India's first spiritual wellness vending platform
             </p>
 
             <p
