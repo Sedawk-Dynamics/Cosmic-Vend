@@ -251,14 +251,28 @@ export default function Footer() {
             Confidential &mdash; B2B partner &amp; franchisee information only
           </p>
 
-          <div className="flex items-center gap-2">
-            <span className="text-[#C9A84C] text-sm">&#10022;</span>
+          <div className="flex flex-col items-center sm:items-end gap-1">
+            <div className="flex items-center gap-2">
+              <span className="text-[#C9A84C] text-sm">&#10022;</span>
 
-            <span className="font-mono text-xs text-gray-500 tracking-widest uppercase">
-              CosmicVend
-            </span>
+              <span className="font-mono text-xs text-gray-500 tracking-widest uppercase">
+                CosmicVend
+              </span>
 
-            <span className="text-[#C9A84C] text-sm">&#10022;</span>
+              <span className="text-[#C9A84C] text-sm">&#10022;</span>
+            </div>
+
+            <p className="font-mono text-xs text-gray-500 tracking-wide">
+              Designed by{' '}
+              <a
+                href="https://webel.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 hover:text-[#C9A84C] transition-colors duration-200"
+              >
+                Webelio
+              </a>
+            </p>
           </div>
         </div>
       </div>
