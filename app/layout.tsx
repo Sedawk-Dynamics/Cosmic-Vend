@@ -80,6 +80,9 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   formatDetection: { telephone: false, address: false, email: false },
+  verification: {
+    google: 'KLES40EL9zQrVKSnDJjYuwMDmEM0Oy3POUB1BClWKC8',
+  },
 }
 
 export const viewport: Viewport = {
