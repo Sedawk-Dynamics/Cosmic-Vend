@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/seo'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import StarfieldCanvas from '@/components/starfield-canvas'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | CosmicVend',
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
+  robots: { index: true, follow: true },
+  title: 'Privacy Policy',
   description:
     "How CosmicVend (Hallow Essentials LLP) collects, uses, stores, and protects your personal data.",
 }

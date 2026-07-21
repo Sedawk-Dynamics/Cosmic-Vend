@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/seo'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import StarfieldCanvas from '@/components/starfield-canvas'
 
 export const metadata: Metadata = {
-  title: 'Disclaimer Policy | CosmicVend',
+  alternates: { canonical: `${SITE_URL}/disclaimer-policy` },
+  robots: { index: true, follow: true },
+  title: 'Disclaimer Policy',
   description:
     'The Disclaimer Policy governing use of the CosmicVend website, operated by Hallow Essentials LLP.',
 }

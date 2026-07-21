@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/seo'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import StarfieldCanvas from '@/components/starfield-canvas'
 
 export const metadata: Metadata = {
-  title: 'Terms of Use | CosmicVend',
+  alternates: { canonical: `${SITE_URL}/terms-of-use` },
+  robots: { index: true, follow: true },
+  title: 'Terms of Use',
   description:
     "The Terms of Use governing access to and use of CosmicVend's website, operated by Hallow Essentials LLP.",
 }
