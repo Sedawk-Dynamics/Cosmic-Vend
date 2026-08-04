@@ -10,6 +10,7 @@ import Hero from '@/components/Hero'
 import SacredFrequency from '@/components/SacredFrequency'
 import QuoteSection from '@/components/QuoteSection'
 import AffirmationCard from '@/components/AffirmationCard'
+import ScrollCue from '@/components/ScrollCue'
 import type { WorldConfig } from '@/lib/worlds'
 
 const LOGO =
@@ -136,18 +137,18 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
             <Hero eyebrow={config.label} title={config.title} subtitle={config.subtitle} />
 
             {/* Sacred frequency */}
-            <section className="relative z-10 px-6 pt-28">
+            <section className="relative z-10 px-6 pt-16 md:pt-20">
               <SectionLabel>The Tuning</SectionLabel>
               <SacredFrequency hz={config.hz} label={config.freqLabel} caption={config.freqCaption} />
             </section>
 
             {/* Verse */}
-            <section className="relative z-10 px-6 pt-32">
+            <section className="relative z-10 px-6 pt-16 md:pt-24">
               <QuoteSection quote={config.verse} author={config.verseAuthor} />
             </section>
 
             {/* Affirmations — six tongues, one intention */}
-            <section className="relative z-10 px-6 pt-32">
+            <section className="relative z-10 px-6 pt-16 md:pt-24">
               <SectionLabel>Affirmation</SectionLabel>
               <div className="mx-auto flex max-w-xl flex-col gap-4">
                 {config.affirmations.map((a, i) => (
@@ -162,10 +163,12 @@ export default function WorldExperience({ config }: { config: WorldConfig }) {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2 }}
-              className="relative z-10 pb-24 pt-36 text-center font-serif text-sm italic tracking-wide text-[rgba(240,234,255,0.45)]"
+              className="relative z-10 pb-24 pt-20 md:pt-28 text-center font-serif text-sm italic tracking-wide text-[rgba(240,234,255,0.45)]"
             >
               Pause &nbsp;|&nbsp; Breath &nbsp;|&nbsp; Align
             </motion.p>
+
+            <ScrollCue />
           </motion.div>
         )}
       </AnimatePresence>
